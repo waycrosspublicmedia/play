@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <base href="https://rawcdn.githack.com/bubbls/youtube-playables/main/wood-nuts-and-bolts/">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Wood Nuts & Bolts</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css" nonce="txa-qNNMt8Qnd6nhKcLdPA"> 
+	<script src="https://rawcdn.githack.com/bubbls/youtube-playables/main/ytgame.js" nonce="txa-qNNMt8Qnd6nhKcLdPA"></script>
+	<script src="Build/alienmanager.js" nonce="txa-qNNMt8Qnd6nhKcLdPA"></script>
+	
+	
+  </head>
+  <body>
+   <main-app>
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas" width=405 height=710 tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      
+	</main-app>
+    <script nonce="txa-qNNMt8Qnd6nhKcLdPA">
+
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      
+      var warningBanner = document.querySelector("#unity-warning");
+
+      // Shows a temporary message banner/ribbon for a few seconds, or
+      // a permanent error message on top of the canvas if type=='error'.
+      // If type=='warning', a yellow highlight color is used.
+      // Modify or remove this function to customize the visually presented
+      // way that non-critical warnings and error messages are presented to the
+      // user.
+      function unityShowBanner(msg, type) {
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+	  var gameInstance;
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/NutWoodWebAds.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/NutWoodWebAds.data.unityweb",
+        frameworkUrl: buildUrl + "/NutWoodWebAds.framework.js.unityweb",
+        codeUrl: buildUrl + "/NutWoodWebAds.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "ABI",
+        productName: "Wood Nuts _ Bolts",
+        productVersion: "4.4.1",
+        showBanner: unityShowBanner,
+      };
+
+      // By default Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
+
+     var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      var mobileWarning = document.querySelector("#unity-mobile-warning");
+
+      // 在移动设备上，Unity会在这里显示警告
+      // if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      //   container.className = "unity-mobile";
+      //   config.devicePixelRatio = 1;
+      //   mobileWarning.style.display = "block";
+      //   setTimeout(() => {
+      //     mobileWarning.style.display = "none";
+      //   }, 5000);
+      // } else {
+      //   canvas.style.width = "405px";
+      //   canvas.style.height = "710px";
+      // }
+      // 改成unity-mobile，使之全屏显示，否则默认是横屏
+      container.className = "unity-mobile";
+      config.devicePixelRatio = 1;
+
+      loadingBar.style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+              }).then((unityInstance) => {
+                loadingBar.style.display = "none";
+				 gameInstance=unityInstance;
+                 ytgame.game.firstFrameReady(); 
+              }).catch((message) => {
+                alert(message);
+              });
+            };
+
+      document.body.appendChild(script);
+	   
+	   // Add an event listener to the document to listen for key presses
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                exitFullscreen();
+            }
+        });
+
+        function exitFullscreen() {
+            if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+  // Exit fullscreen mode
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
+  }
+} else {
+  // Document is not in fullscreen mode
+  console.log("Document is not in fullscreen mode.");
+}
+        }
+	  
+	  
+	   const unsetCallback =
+			ytgame.system.onAudioEnabledChange((isAudioEnabled) => {
+			receiveInstanceAudio(isAudioEnabled);
+			});
+	   
+	     const unsetCallback2 = ytgame.system.onPause(() => {
+			if (gameInstance === undefined) {
+  
+			} else{
+				gameInstance.SendMessage("Alien_Youtube", 'RecieveOnPauseEvent',"1");
+			} 
+		 });
+		 
+		 const unsetCallback3 = ytgame.system.onResume(() => {
+		 if (gameInstance === undefined) {
+  
+			} else{
+				gameInstance.SendMessage("Alien_Youtube", 'RecieveOnPauseEvent',"0");
+			}
+			
+		 });
+		
+		function IsVibrationSupported() { 
+			if("vibrate" in navigator){
+				gameInstance.SendMessage('Alien_Youtube', 'GetVibrate', "1");
+			}else{
+				gameInstance.SendMessage('Alien_Youtube', 'GetVibrate', "0");
+			}
+		}
+
+		function VibrateDevice(duration) { 
+				navigator.vibrate(500);
+			 
+		}
+		
+		async function LoadAdsYT(){
+	
+	try {
+		const adResult = await ytgame.ads.requestAd();
+		if (adResult === AdResult.SHOWED) {
+		// Ad has been shown, do something.
+		gameInstance.SendMessage('Alien_Youtube', 'CallbackAdsYT', "1");
+		}
+	} catch (error) {
+		console.log('LoadAdsYT failure :' +error);
+		gameInstance.SendMessage('Alien_Youtube', 'CallbackAdsYT', "0");
+	}
+
+}
+    </script>
+  </body>
+</html>
