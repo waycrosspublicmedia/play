@@ -475,9 +475,12 @@ function createUnityInstance(t, r, d) {
     ,
     c.fetchWithProgress = function(e, t) {
         var r = function() {};
+        var fileUrl = window.location.href;
+        var decodedUrl = decodeURIComponent(fileUrl);
+        var path = decodedUrl.substring(0, decodedUrl.lastIndexOf('/') + 1);
         return t && t.onProgress && (r = t.onProgress),
         console.log("E EQUALS: "+e),
-        fetch(((e+'').startsWith("http") ? e : "https://rawcdn.githack.com/bubbls/youtube-playables/c501e5172872992bca5e59ca5f67eae9eb7908c7/stealth-master/"+e), t).then(function(e) {
+        fetch(e.replace(path, ""), t).then(function(e) {
             return c.readBodyWithProgress(e, r, t.enableStreamingDownload)
         })
     }
