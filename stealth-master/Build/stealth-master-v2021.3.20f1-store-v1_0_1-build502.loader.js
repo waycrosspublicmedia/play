@@ -476,8 +476,8 @@ function createUnityInstance(t, r, d) {
     c.fetchWithProgress = function(e, t) {
         var r = function() {};
         return t && t.onProgress && (r = t.onProgress),
-        fetch(e+''.startsWith("http") ? e : "https://rawcdn.githack.com/bubbls/youtube-playables/02607815322071cb3235df99b002ecd13ab0db61/stealth-master/"+e.replace("./", ""), t).then(function(e) {
-            console.log(e);
+        console.log("E EQUALS: "+e),
+        fetch(((e+'').startsWith("http") ? e : "https://rawcdn.githack.com/bubbls/youtube-playables/c501e5172872992bca5e59ca5f67eae9eb7908c7/stealth-master/"+e), t).then(function(e) {
             return c.readBodyWithProgress(e, r, t.enableStreamingDownload)
         })
     }
