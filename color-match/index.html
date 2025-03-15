@@ -150,7 +150,10 @@
     // Check if URL / File exists
     function UrlExists(urlToCheck)
     {
-        return true;
+        var httpReq = new XMLHttpRequest();
+        httpReq.open('HEAD', urlToCheck, false);
+        httpReq.send();
+        return httpReq.status!=404;
     }
 
     // decompress files and call callback
