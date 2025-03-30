@@ -2549,7 +2549,7 @@
     ;
     var Xd = {
         sa: function(a) {
-            a = Qd(a || window.location.hash);
+            a = Qd(a || window.gsal8124.hash);
             if (!a)
                 return 0;
             a = (a = a.get("preStart")) ? Number(a) : 0;
@@ -2607,7 +2607,7 @@
     ;
     var be = {
         la: function(a) {
-            return Qd(a || window.location.hash).get("audioMuted") === "true"
+            return Qd(a || window.gsal8124.hash).get("audioMuted") === "true"
         }
     };
     function X(a, b) {
@@ -3840,7 +3840,7 @@
     });
     var tf = {
         oa: function() {
-            var a = window.location.href;
+            var a = window.gsal8124.href;
             if (mf) {
                 try {
                     var b = new kf(a)
@@ -3871,7 +3871,7 @@
             return (mf && b.searchParams ? b.searchParams : new nf(b.search)).get("gameData")
         },
         pa: function(a) {
-            a = a || window.location.hash;
+            a = a || window.gsal8124.hash;
             return Qd(a).get("gameData")
         }
     };
@@ -4095,7 +4095,7 @@
         na: function() {
             if (!document.currentScript)
                 return zf;
-            var a = Qd(window.location.hash);
+            var a = Qd(window.gsal8124.hash);
             return {
                 V: a.get("enable-backend-update-score") === "true",
                 liveMultiplayer: a.get("enable-live-multiplayer") === "true",
