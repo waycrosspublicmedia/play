@@ -1,9 +1,9 @@
-(function() {
+(function () {
     'use strict';
 
     function p(a) {
         var b = 0;
-        return function() {
+        return function () {
             return b < a.length ? {
                 done: !1,
                 value: a[b++]
@@ -12,7 +12,7 @@
             }
         }
     }
-    var r = typeof Object.defineProperties == "function" ? Object.defineProperty : function(a, b, e) {
+    var r = typeof Object.defineProperties == "function" ? Object.defineProperty : function (a, b, e) {
         if (a == Array.prototype || a == Object.prototype) return a;
         a[b] = e.value;
         return a
@@ -43,7 +43,7 @@
             })
         }
     }
-    v("Symbol", function(a) {
+    v("Symbol", function (a) {
         function b(h) {
             if (this instanceof b) throw new TypeError("Symbol is not a constructor");
             return new e(f + (h || "") + "_" + k++, h)
@@ -58,14 +58,14 @@
             })
         }
         if (a) return a;
-        e.prototype.toString = function() {
+        e.prototype.toString = function () {
             return this.g
         };
         var f = "jscomp_symbol_" + (Math.random() * 1E9 >>> 0) + "_",
             k = 0;
         return b
     });
-    v("Symbol.iterator", function(a) {
+    v("Symbol.iterator", function (a) {
         if (a) return a;
         a = Symbol("Symbol.iterator");
         for (var b = "Array Int8Array Uint8Array Uint8ClampedArray Int16Array Uint16Array Int32Array Uint32Array Float32Array Float64Array".split(" "), e = 0; e < b.length; e++) {
@@ -73,7 +73,7 @@
             typeof f === "function" && typeof f.prototype[a] != "function" && r(f.prototype, a, {
                 configurable: !0,
                 writable: !0,
-                value: function() {
+                value: function () {
                     return w(p(this))
                 }
             })
@@ -85,7 +85,7 @@
         a = {
             next: a
         };
-        a[Symbol.iterator] = function() {
+        a[Symbol.iterator] = function () {
             return this
         };
         return a
@@ -113,7 +113,7 @@
         if (a.j) throw new TypeError("Generator is already running");
         a.j = !0
     }
-    y.prototype.m = function(a) {
+    y.prototype.m = function (a) {
         this.l = a
     };
 
@@ -124,7 +124,7 @@
         };
         a.g = a.o
     }
-    y.prototype.return = function(a) {
+    y.prototype.return = function (a) {
         this.i = {
             return: a
         };
@@ -146,7 +146,7 @@
     function G(a, b) {
         z(a.g);
         var e = a.g.h;
-        if (e) return H(a, "return" in e ? e["return"] : function(f) {
+        if (e) return H(a, "return" in e ? e["return"] : function (f) {
             return {
                 value: f,
                 done: !0
@@ -197,20 +197,20 @@
     }
 
     function J(a) {
-        this.next = function(b) {
+        this.next = function (b) {
             z(a.g);
             a.g.h ? b = H(a, a.g.h.next, b, a.g.m) : (a.g.m(b), b = I(a));
             return b
         };
-        this.throw = function(b) {
+        this.throw = function (b) {
             z(a.g);
             a.g.h ? b = H(a, a.g.h["throw"], b, a.g.m) : (A(a.g, b), b = I(a));
             return b
         };
-        this.return = function(b) {
+        this.return = function (b) {
             return G(a, b)
         };
-        this[Symbol.iterator] = function() {
+        this[Symbol.iterator] = function () {
             return this
         }
     }
@@ -223,14 +223,14 @@
         function e(f) {
             return a.throw(f)
         }
-        return new Promise(function(f, k) {
+        return new Promise(function (f, k) {
             function h(c) {
                 c.done ? f(c.value) : Promise.resolve(c.value).then(b, e).then(h, k)
             }
             h(a.next())
         })
     }
-    v("Promise", function(a) {
+    v("Promise", function (a) {
         function b(c) {
             this.h = 0;
             this.i = void 0;
@@ -249,26 +249,26 @@
         }
 
         function f(c) {
-            return c instanceof b ? c : new b(function(d) {
+            return c instanceof b ? c : new b(function (d) {
                 d(c)
             })
         }
         if (a) return a;
-        e.prototype.h = function(c) {
+        e.prototype.h = function (c) {
             if (this.g == null) {
                 this.g = [];
                 var d = this;
-                this.i(function() {
+                this.i(function () {
                     d.l()
                 })
             }
             this.g.push(c)
         };
         var k = u.setTimeout;
-        e.prototype.i = function(c) {
+        e.prototype.i = function (c) {
             k(c, 0)
         };
-        e.prototype.l = function() {
+        e.prototype.l = function () {
             for (; this.g && this.g.length;) {
                 var c = this.g;
                 this.g = [];
@@ -284,14 +284,14 @@
             }
             this.g = null
         };
-        e.prototype.j = function(c) {
-            this.i(function() {
+        e.prototype.j = function (c) {
+            this.i(function () {
                 throw c;
             })
         };
-        b.prototype.j = function() {
+        b.prototype.j = function () {
             function c(l) {
-                return function(m) {
+                return function (m) {
                     g || (g = !0, l.call(d, m))
                 }
             }
@@ -302,24 +302,24 @@
                 reject: c(this.l)
             }
         };
-        b.prototype.A = function(c) {
+        b.prototype.A = function (c) {
             if (c === this) this.l(new TypeError("A Promise cannot resolve to itself"));
             else if (c instanceof b) this.C(c);
             else {
                 a: switch (typeof c) {
-                    case "object":
-                        var d = c != null;
-                        break a;
-                    case "function":
-                        d = !0;
-                        break a;
-                    default:
-                        d = !1
+                case "object":
+                    var d = c != null;
+                    break a;
+                case "function":
+                    d = !0;
+                    break a;
+                default:
+                    d = !1
                 }
                 d ? this.v(c) : this.m(c)
             }
         };
-        b.prototype.v = function(c) {
+        b.prototype.v = function (c) {
             var d = void 0;
             try {
                 d = c.then
@@ -329,29 +329,29 @@
             }
             typeof d == "function" ? this.D(d, c) : this.m(c)
         };
-        b.prototype.l = function(c) {
+        b.prototype.l = function (c) {
             this.u(2, c)
         };
-        b.prototype.m = function(c) {
+        b.prototype.m = function (c) {
             this.u(1, c)
         };
-        b.prototype.u = function(c, d) {
+        b.prototype.u = function (c, d) {
             if (this.h != 0) throw Error("Cannot settle(" + c + ", " + d + "): Promise already settled in state" + this.h);
             this.h = c;
             this.i = d;
             this.h === 2 && this.B();
             this.H()
         };
-        b.prototype.B = function() {
+        b.prototype.B = function () {
             var c = this;
-            k(function() {
+            k(function () {
                 if (c.I()) {
                     var d = u.console;
                     typeof d !== "undefined" && d.error(c.i)
                 }
             }, 1)
         };
-        b.prototype.I = function() {
+        b.prototype.I = function () {
             if (this.o) return !1;
             var c = u.CustomEvent,
                 d = u.Event,
@@ -366,18 +366,18 @@
             c.reason = this.i;
             return g(c)
         };
-        b.prototype.H = function() {
+        b.prototype.H = function () {
             if (this.g != null) {
                 for (var c = 0; c < this.g.length; ++c) h.h(this.g[c]);
                 this.g = null
             }
         };
         var h = new e;
-        b.prototype.C = function(c) {
+        b.prototype.C = function (c) {
             var d = this.j();
             c.s(d.resolve, d.reject)
         };
-        b.prototype.D = function(c, d) {
+        b.prototype.D = function (c, d) {
             var g = this.j();
             try {
                 c.call(d, g.resolve, g.reject)
@@ -385,9 +385,9 @@
                 g.reject(l)
             }
         };
-        b.prototype.then = function(c, d) {
+        b.prototype.then = function (c, d) {
             function g(n, q) {
-                return typeof n == "function" ? function(B) {
+                return typeof n == "function" ? function (B) {
                     try {
                         l(n(B))
                     } catch (C) {
@@ -395,27 +395,27 @@
                     }
                 } : q
             }
-            var l, m, D = new b(function(n, q) {
+            var l, m, D = new b(function (n, q) {
                 l = n;
                 m = q
             });
             this.s(g(c, l), g(d, m));
             return D
         };
-        b.prototype.catch = function(c) {
+        b.prototype.catch = function (c) {
             return this.then(void 0, c)
         };
-        b.prototype.s = function(c, d) {
+        b.prototype.s = function (c, d) {
             function g() {
                 switch (l.h) {
-                    case 1:
-                        c(l.i);
-                        break;
-                    case 2:
-                        d(l.i);
-                        break;
-                    default:
-                        throw Error("Unexpected state: " + l.h);
+                case 1:
+                    c(l.i);
+                    break;
+                case 2:
+                    d(l.i);
+                    break;
+                default:
+                    throw Error("Unexpected state: " + l.h);
                 }
             }
             var l = this;
@@ -423,22 +423,22 @@
             this.o = !0
         };
         b.resolve = f;
-        b.reject = function(c) {
-            return new b(function(d, g) {
+        b.reject = function (c) {
+            return new b(function (d, g) {
                 g(c)
             })
         };
-        b.race = function(c) {
-            return new b(function(d, g) {
+        b.race = function (c) {
+            return new b(function (d, g) {
                 for (var l = x(c), m = l.next(); !m.done; m = l.next()) f(m.value).s(d, g)
             })
         };
-        b.all = function(c) {
+        b.all = function (c) {
             var d = x(c),
                 g = d.next();
-            return g.done ? f([]) : new b(function(l, m) {
+            return g.done ? f([]) : new b(function (l, m) {
                 function D(B) {
-                    return function(C) {
+                    return function (C) {
                         n[B] = C;
                         q--;
                         q == 0 && l(n)
@@ -457,7 +457,7 @@
         var e = 0,
             f = !1,
             k = {
-                next: function() {
+                next: function () {
                     if (!f && e < a.length) {
                         var h = e++;
                         return {
@@ -472,43 +472,43 @@
                     }
                 }
             };
-        k[Symbol.iterator] = function() {
+        k[Symbol.iterator] = function () {
             return k
         };
         return k
     }
-    v("Array.prototype.keys", function(a) {
-        return a ? a : function() {
-            return L(this, function(b) {
+    v("Array.prototype.keys", function (a) {
+        return a ? a : function () {
+            return L(this, function (b) {
                 return b
             })
         }
     });
-    (function() {
+    (function () {
         var a, b, e, f, k;
-        return K(new J(new F(function(h) {
+        return K(new J(new F(function (h) {
             switch (h.g) {
-                case 1:
-                    if (!("serviceWorker" in navigator)) {
-                        h.g = 0;
-                        break
-                    }
-                    return E(h, navigator.serviceWorker.getRegistration("../.."), 3);
-                case 3:
-                    return (a = h.l) ? E(h, a.unregister(), 4) : h.return();
-                case 4:
-                    return window.caches == null ? h.return() : E(h, window.caches.keys(), 5);
-                case 5:
-                    b = h.l, e = x(b), f = e.next();
-                case 6:
-                    if (f.done) {
-                        h.g = 0;
-                        break
-                    }
-                    k = f.value;
-                    return E(h, window.caches.delete(k), 7);
-                case 7:
-                    f = e.next(), h.g = 6
+            case 1:
+                if (!("serviceWorker" in navigator)) {
+                    h.g = 0;
+                    break
+                }
+                return E(h, navigator.serviceWorker.getRegistration("../.."), 3);
+            case 3:
+                return (a = h.l) ? E(h, a.unregister(), 4) : h.return();
+            case 4:
+                return window.caches == null ? h.return() : E(h, window.caches.keys(), 5);
+            case 5:
+                b = h.l, e = x(b), f = e.next();
+            case 6:
+                if (f.done) {
+                    h.g = 0;
+                    break
+                }
+                k = f.value;
+                return E(h, window.caches.delete(k), 7);
+            case 7:
+                f = e.next(), h.g = 6
             }
         })))
     })();
